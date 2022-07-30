@@ -1,9 +1,29 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        Babylonian bl = new Babylonian();
-        int num = 6;
-        double b = bl.BL(num);
-        String res = String.format("%.2f",b);
-        System.out.println(res);
+        int cnt = 0;
+        int sum = 0;
+
+        int[] type = {10,20,50};
+        int target = 50;
+
+        ArrayList<Integer> sumArr = new ArrayList<>();
+
+        for(int i=0; i<type.length; i++){
+            for(int j=i+1; j<type.length; j++){
+                sum = type[i] + type[j];
+                if(sum == target){
+                    for(int k:sumArr){
+                        if(sum != k){
+                            sumArr.add(sum);
+                            cnt++;
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println(cnt);
     }
 }
