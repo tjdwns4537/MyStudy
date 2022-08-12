@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class 신고결과받기 {
     /*
@@ -30,10 +28,16 @@ public class 신고결과받기 {
     - 결과 :
     각 유저별 메일을 받은 횟수를 배열에 담은 것을 리턴
 
+        // report 에 (띄어쓰기) 를 기준으로 split 해서 배열에 담음
+        // 0번부터 짝수는 신고인, 홀수는 신고 당한사람
+        // 신고인과 신고 당한사람 비교 문법 필요
+        // k번 이상된 사람 있으면 cnt 의 해당하는 인덱스에 카운터가 증가됨
+
     */
     public static void main(String[] args) {
         String[] id_list = {"muzi", "frodo", "apeach", "neo"};
         String[] report = {"muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"};
+        String[] report2 = {"ryan con", "ryan con", "ryan con", "ryan con"};
         int k = 2;
         int[] solution = solution(id_list, report, k);
         for (int i = 0; i < solution.length; i++) {
@@ -41,53 +45,54 @@ public class 신고결과받기 {
         }
 
     }
-    public static int[] solution(String[] id_list, String[] report, int k) {
+
+    public static int[] solution(String[] id_list, String[] report, int k){
         int[] answer = new int[id_list.length];
 
-        String[][] comp = new String[][];
-        HashMap<String, String> map = new HashMap<>();
-        String[][] SplitString = new String[report.length][2];
-        int[] cnt = new int[id_list.length];
+        /*
+        HashMap<String,HashSet<String>> DeclaratedMap
+        -> 중복 체크
 
-        for (int i = 0; i < cnt.length; i++) {
-            cnt[i] = 0;
+        HashMap<String,Integer> DeclarateMap
+        -> 키값 : 신고당한사람, value값 : 카운트 횟수
+
+        HashSet<String> repSet
+        -> report 를 리스트로 변환한 후 hashSet 의 요소로 넣어줌
+         */
+
+        HashMap<String, HashSet<String>> DeclaratedMap = new HashMap<>();
+        HashMap<String, Integer> DeclarateCountMap = new HashMap<>();
+        HashSet<String> DeclarateSet = new HashSet<>(Arrays.asList(report));
+
+        for (String DeclareInfo : DeclarateSet) {
+            String Declarater = DeclareInfo.split(" ")[0];
+            String Declarated = DeclareInfo.split(" ")[1];
+
+            // HashSet 에 신고 당한 대상을 담아준다.
+            HashSet<String> temp = new HashSet<>();
+            temp.add(Declarated);
+
+            // 만약 신고 당한 대상의 map에 신고 한 사람 이름의 키 값이 존재 하지 않으면 추가해준다.
+            DeclaratedMap.putIfAbsent(Declarater, temp);
+
+            // 신고 당한 대상의 map 에 신고한 사람의 키에 대한 HashSet에 신고당한 대상의 이름을 넣어준다.
+            DeclaratedMap.get(Declarater).add(Declarated);
+
+            DeclarateCountMap.put(Declarated, DeclarateCountMap.getOrDefault(Declarated, 0) + 1);
         }
 
-        // report 에 (띄어쓰기) 를 기준으로 split 해서 배열에 담음
-        // 0번부터 짝수는 신고인, 홀수는 신고 당한사람
-        // 신고인과 신고 당한사람 비교 문법 필요
-        // k번 이상된 사람 있으면 cnt 의 해당하는 인덱스에 카운터가 증가됨
-        for (int i = 0; i < report.length; i++) {
-            SplitString[i] = report[i].split(" ");
-        }
-
-        for (int i = 0; i < SplitString.length; i++) {
-            for (int w = 0; w < id_list.length; w++) {
-                Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
-                while (entries.hasNext()) {
-                    Map.Entry<String, String> entry = entries.next();
-                    if (entry.getKey().equals(SplitString[i][0]) && entry.getValue().equals(SplitString[i][1])) {
-                        continue;
+        //
+        for (String Declared : DeclarateCountMap.keySet()) {
+            int DeclaredCount = DeclarateCountMap.get(Declared);
+            if (DeclaredCount >= k) {
+                for (int i = 0; i < id_list.length; i++) {
+                    if (DeclaratedMap.containsKey(id_list[i]) && DeclaratedMap.get(id_list[i]).contains(Declared)) {
+                        answer[i]++;
                     }
                 }
-
-                if(SplitString[i][1].equals(id_list[w])){
-                    map.put(SplitString[i][0],SplitString[i][1]);
-                    cnt[w] = cnt[w]+1;
-                }
-
             }
         }
 
-        for (int i = 0; i< id_list.length; i++) {
-            for (int j = 0; j < SplitString[i].length; j++) {
-                if(SplitString[i][j].equals(id_list[i])){
-                    if(cnt[i] >= k){
-                        answer[i] = answer[i]+1;
-                    }
-                }
-            }
-        }
         return answer;
     }
 }
