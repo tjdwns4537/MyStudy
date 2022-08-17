@@ -21,19 +21,21 @@ public class 신규아이디추천 {
     7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
   능  */
     public static void main(String[] args) {
-        String newId = "...!@BaT#*..y.abcdefghijklm";
-        System.out.println(newId);
+        String newId = "=.="	;
+        String solution = solution(newId);
+
+        System.out.println("res: " + solution);
     }
 
-    public String solution(String new_id) {
+    public static String solution(String new_id) {
         String answer = "";
-        StringBuilder sb = new StringBuilder();
         String one = "";
         String two = "";
         String three = "";
         String four = "";
         String five = "";
         String six = "";
+        String seven = "";
 
         // 1
         one = new_id.toLowerCase(Locale.ROOT);
@@ -42,8 +44,8 @@ public class 신규아이디추천 {
 
         // 2
         for (int i = 0; i < ch.length; i++) {
-            if(('a'<= ch[i] && ch[i] <= 'z') || 0 <= ch[i] && ch[i] <= 9 ||
-            ch[i]=='-' || ch[i] =='_' || ch[i] == '.'){
+            if(('a'<= ch[i] && ch[i] <= 'z') || ('0' <= ch[i] && ch[i] <= '9') ||
+                    (ch[i]=='-') || (ch[i] =='_') || (ch[i] == '.')){
                 two += ch[i];
             } else {
                 continue;
@@ -51,9 +53,61 @@ public class 신규아이디추천 {
         }
 
         // 3
-        three = two.replaceAll("..", ".");
 
-        
+        if (two.contains("..")) {
+            while(two.contains("..")){
+                three = two.replace("..", ".");
+                two = three;
+            }
+        }
+        else {
+            three = two;
+        }
+
+        //4,5
+        four = three;
+
+        if(four.isEmpty()){
+            five = "a";
+        }
+        else{
+            ch = four.toCharArray();
+            System.out.println("ch.length : " + ch.length);
+            System.out.println("four.length : " + four.length());
+            if(four.length() !=1 && ch[0] == '.'){
+                four = four.substring(1,four.length());
+            }
+            if(four.length() !=1 && ch[four.length()-1] == '.'){
+                four = four.substring(0,four.length()-1);
+            }
+            five = four;
+        }
+
+        //6
+        if(five.length() >= 15){
+            six = five.substring(0, 15);
+        }
+        else six = five;
+
+        if(ch[six.length()-1] == '.'){
+            six = six.substring(0,six.length()-1);
+        }
+
+        //7
+        seven = six;
+        if(seven.length() <= 2){
+            ch = seven.toCharArray();
+            while(seven.length()<3){
+                if(seven.length() > 2){
+                    seven += ch[ch.length-1];
+                }
+                else{
+                    seven += ch[0];
+                }
+            }
+        }
+
+        answer = seven;
         return answer;
     }
 }
