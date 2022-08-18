@@ -21,7 +21,7 @@ public class 신규아이디추천 {
     7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
   능  */
     public static void main(String[] args) {
-        String newId = "=.="	;
+        String newId = 	"00.@cdefgTWhijklm...!_I',"	;
         String solution = solution(newId);
 
         System.out.println("res: " + solution);
@@ -53,58 +53,40 @@ public class 신규아이디추천 {
         }
 
         // 3
-
-        if (two.contains("..")) {
-            while(two.contains("..")){
-                three = two.replace("..", ".");
-                two = three;
-            }
-        }
-        else {
-            three = two;
+        three = two;
+        while(three.contains("..")){
+            three = three.replace("..", ".");
         }
 
-        //4,5
+        //4
         four = three;
-
-        if(four.isEmpty()){
-            five = "a";
+        if (four.length() > 0 && four.charAt(0) == '.') {
+            four = four.substring(1, four.length());
         }
-        else{
-            ch = four.toCharArray();
-            System.out.println("ch.length : " + ch.length);
-            System.out.println("four.length : " + four.length());
-            if(four.length() !=1 && ch[0] == '.'){
-                four = four.substring(1,four.length());
-            }
-            if(four.length() !=1 && ch[four.length()-1] == '.'){
-                four = four.substring(0,four.length()-1);
-            }
-            five = four;
+        if (four.length() > 0 && four.charAt(four.length() - 1) == '.') {
+            four = four.substring(0, four.length() - 1);
+        }
+
+        //5
+        five = four;
+        if (five.isEmpty()) {
+            five = "a";
         }
 
         //6
-        if(five.length() >= 15){
-            six = five.substring(0, 15);
-        }
-        else six = five;
-
-        if(ch[six.length()-1] == '.'){
-            six = six.substring(0,six.length()-1);
+        six = five;
+        if(six.length() > 15){
+            six = six.substring(0, 15);
+            if(six.substring(six.length()-1,six.length()).equals(".")){
+                six = six.substring(0,six.length()-1);
+            }
         }
 
         //7
         seven = six;
-        if(seven.length() <= 2){
+        while(seven.length()<=2){
             ch = seven.toCharArray();
-            while(seven.length()<3){
-                if(seven.length() > 2){
-                    seven += ch[ch.length-1];
-                }
-                else{
-                    seven += ch[0];
-                }
-            }
+            seven += ch[ch.length-1];
         }
 
         answer = seven;
