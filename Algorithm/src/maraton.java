@@ -1,6 +1,7 @@
 import static java.util.Arrays.sort;
 
 public class maraton {
+
     /**
      - 문제
         마라톤 선수 이름이 담긴 배열 participant
@@ -13,7 +14,7 @@ public class maraton {
         3) 참가자 이름
             - 알파벳 소문자 20글자 이하
             - 동명이인 있을 수 있음
-     */
+     **/
 
 
     public static void main(String[] args) {
