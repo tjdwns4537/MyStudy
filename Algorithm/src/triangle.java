@@ -12,13 +12,40 @@ public class triangle {
      **/
     public static void main(String[] args) {
         int[][] triangle = {{7},{3, 8},{8, 1, 0},{2, 7, 4, 4},{4, 5, 2, 6, 5}};
-        solution(triangle);
+        int result = solution(triangle);
+        System.out.println("result: "+result);
     }
 
     public static int solution(int[][] triangle) {
         int answer = 0;
-        int maxSum = 0;
 
+        int[][] dp = new int[triangle.length][triangle.length];
+        dp[0][0] = triangle[0][0]; // 맨 위에 값을 넣어줌
+
+        for (int i = 1; i < triangle.length; i++) {
+            /* 맨 왼쪽 */
+            dp[i][0] = dp[i - 1][0] + triangle[i][0];
+            // 7+3, 7+8, 7+2 와 같이 맨 왼쪽 부분을 더하게 된다.
+            // dp[1][0] (10) = dp[0][0] (7) + triangle[1][0] (3) -- 1
+            // dp[2][0] (18) = dp[1][0] (10) + triangle[2][0] (8) -- 2
+
+            /* 중간값 */
+            for (int j = 1; j <= i; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - 1]) + triangle[i][j];
+                // dp[1][1] = dp[0][1], dp[0][0] 중에 max + triangle[1][1] (8) -- 1
+                // dp[2][1] = dp[1][1], dp[1][0] 중에 max + triangle[2][1] (1)
+                // dp[2][2] = dp[1][2], dp[1][1] 중에 max + triangle[2][2] (0) -- 2
+            }
+
+            /* 맨 오른쪽 */
+//            dp[i][i] = dp[i - 1][i - 1] + triangle[i][i];
+            // dp[1][1] (15) = dp[0][0] (7) + triangle[1][1] (8) -- 1
+            // dp[2][2] (15) = dp[1][1] (중간값의 max 값) + triangle[2][2] (1) -- 2
+        }
+
+        for (int i = 0; i < triangle.length; i++) {
+            answer = Math.max(answer, dp[triangle.length - 1][i]);
+        }
 
         return answer;
     }
