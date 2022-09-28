@@ -3,9 +3,6 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class heapQueue {
-    /**
-
-     */
     public static void main(String[] args) {
         String[] b = {"I -45", "I 653", "D 1", "I -642", "I 45", "I 97", "D 1", "D -1", "I 333"};
 
