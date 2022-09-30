@@ -49,6 +49,7 @@ public class FarNode {
 
         for (int i = 1; i <= n; i++) { // 그래프 정점이 1부터 시작
             if(depth == visit[i]) answer++;
+            // 가장 먼 노드의 갯수를 구하기 위한 조건문
         }
 
         return answer;
