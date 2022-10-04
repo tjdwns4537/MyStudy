@@ -1,6 +1,7 @@
 public class PrimeProblem {
 
     /**
+     * programmers skill check level1
      - 문제
      주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우를 구해라
 

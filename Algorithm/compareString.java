@@ -1,7 +1,8 @@
 public class compareString {
 
     /**
-    - 문제
+     * programmers skill check level1
+     - 문제
      : 대소문자가 섞여 있는 문자열 s가 존재
      s에 'p'의 개수, 'y'의 개수를 비교해 같으면 True, 아니면 false
      만약 하나도 없는 경우 true 리턴
