@@ -14,24 +14,19 @@ public class skillCheck2 {
     }
     public int[] solution(int n, long k) {
         int[] answer = new int[n];
-        ArrayList<Integer> res = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
 
         int fn = 1;
         for (int i = 1; i <= n; i++) {
             fn *= i; // fac 구하기
-            res.add(i);
+            list.add(i);
         }
         k--;
-
         int idx = 0;
-        while (n > 0) {
-            fn /= n;
-            answer[idx++] = res.get((int) (k / fn));
-            // 배열의 번호
-            res.remove((int) k / fn);
+        while (idx < n) {
+            fn /= n - idx;
+            answer[idx++] = list.remove((int) (k / fn));
             k %= fn;
-            // 배열 내부 번호
-            n--;
         }
 
         return answer;
