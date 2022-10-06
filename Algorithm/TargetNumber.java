@@ -9,29 +9,47 @@ public class TargetNumber {
         ( +1-1+1+1+1 = 3 ) ...
      **/
 
-    boolean[] visit;
+    static int answer = 0;
+    static int[] numbers;
+    static int target;
 
     public static void main(String[] args) {
         int[] numbers1 = {1, 1, 1, 1, 1};
         int[] numbers2 = {4,1,2,1};
-        int target1 = 3;
-        int target2 = 4;
+
+        solution(numbers1, 3);
+        System.out.println(answer);
     }
 
-    public int solution(int[] numbers, int target) {
-        int answer = 0;
+    public static int solution(int[] _numbers, int _target) {
+        answer = 0;
+        numbers = _numbers;
+        target = _target;
 
-
-
+        dfs(0,0);
 
         return answer;
     }
 
-    public void dfs(int[] numbers, int target,int sum, int cnt) {
-        visit = new boolean[numbers.length];
-        visit[target] = true;
-        while (sum > target) {
+    public static void dfs(int index, int sum) {
+
+        // 1. 탈출 방법
+        if (index == numbers.length) { // 인덱스가 배열 길이가 될 때
+            if(sum == target){ // 합이 타겟이 될 때
+                answer++;
+                return;
+            }
+        }
+
+        // 2. 구현 동작
+        try{
+            // 덧셈을 수행
+            dfs(index + 1, sum + numbers[index]);
+            // 뺄셈을 수행
+            dfs(index + 1, sum - numbers[index]);
+        } catch (Exception e){
 
         }
+
     }
 }
