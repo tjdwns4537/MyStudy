@@ -18,6 +18,7 @@ public class n개의최소공배수 {
             int gcd = gcd(answer, arr[i]); // 최대 공약수
             answer = answer * arr[i] / gcd; // 최소 공배수
         }
+
         return answer;
     }
 
