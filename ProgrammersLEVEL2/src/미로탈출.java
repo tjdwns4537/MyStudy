@@ -6,11 +6,8 @@ public class 미로탈출 {
      *      3. visit 체크로 통로가 있는지 확인
      *      4. 통로가 없다면 좌,우 인덱스 비교
      *      => bfs + bfs 활용
+     *      => 나중에 풀기
      * **/
-
-    static int length;
-    static boolean[] visit;
-    static int count;
 
     public static void main(String[] args) {
         String[] maps = {"SOOOL", "XXXXO", "OOOOO", "OXXXX", "OOOOE"};
