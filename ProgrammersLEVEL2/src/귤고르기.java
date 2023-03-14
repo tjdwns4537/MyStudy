@@ -26,7 +26,13 @@ public class 귤고르기 {
             map.put(i, map.getOrDefault(i, 0) + 1);
         }
 
-        List<Integer> list = Arrays.stream(tangerine).boxed().sorted(Comparator.comparingInt(map::get)).collect(Collectors.toList());
+        List<Integer> list = new ArrayList<>(map.keySet());
+
+        list.sort((a, b) -> {
+            if (map.get(a) < map.get(b)) return 1;
+            else if (map.get(a) > map.get(b)) return -1;
+            return 0;
+        });
 
         int i = 0;
         while (k > 0) {
@@ -36,5 +42,11 @@ public class 귤고르기 {
         }
 
         return answer;
+    }
+
+    public int compare(int a, int b) {
+        if(a > b) return 1;
+        if(a < b) return -1;
+        return 0;
     }
 }
