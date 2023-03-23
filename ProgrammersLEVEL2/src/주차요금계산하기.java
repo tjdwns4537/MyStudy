@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -80,7 +81,7 @@ class Car implements Comparable<Car> {
         isParking = false;
         LocalTime exitAt = LocalTime.parse(time);
 
-        int amount = (int)Duration.between(parkedAt, exitAt).toMinutes(); //Duration, LocalTime을 통해 문자열로 주어진 시간의 차(분)를 구함
+        int amount = (int) Duration.between(parkedAt, exitAt).toMinutes(); //Duration, LocalTime을 통해 문자열로 주어진 시간의 차(분)를 구함
         parkingAmount += amount;
     }
 
