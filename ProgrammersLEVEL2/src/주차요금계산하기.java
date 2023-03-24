@@ -26,7 +26,7 @@ public class 주차요금계산하기 {
     }
     public static int[] solution(int[] fees, String[] records) {
         for (String record : records) {
-            String[] recordInfo = record.split(" ");
+            String[] recordInfo = record.split(" "); //05:34, 5961, IN
             String time = recordInfo[0];
             String carNumber = recordInfo[1];
             String action = recordInfo[2]; // "IN" or "OUT"

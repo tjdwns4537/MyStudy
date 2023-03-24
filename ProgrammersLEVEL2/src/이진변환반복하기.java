@@ -12,39 +12,28 @@ public class 이진변환반복하기 {
         String s = "110010101001";
         String res = Arrays.toString(solution(s));
         System.out.println(res);
+
     }
     public static int[] solution(String s) {
         int[] answer = new int[2];
-        String[] split;
-        int deleteZero = 0;
-        int doNum = 1;
 
-        while(true){
+        int cnt = 0;
+        int zeroNum = 0;
 
-            if(s.split("0").equals(s)) break; // 0이 없는 것은 종료
+        while (s.length() > 1) {
+            int numLen = 0;
+            cnt++;
+            System.out.println("str : " + s);
             for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == '0') {
-                    deleteZero++;
-                }
+                if(s.charAt(i) == '0') zeroNum++;
+                if(s.charAt(i) == '1') numLen++;
             }
-
-            split = s.split("0");
-            int splitNum = split.length-1;
-            if(splitNum <= 1) break;
-            s = "";
-
-            while(splitNum > 1){
-                if((splitNum%2)==1) s += 1;
-                else s += 0;
-                splitNum/=2;
-            }
-            s += 1;
-            System.out.println("output : "+s);
-            doNum++;
+            s = Integer.toBinaryString(numLen);
         }
 
-        answer[0] = doNum;
-        answer[1] = deleteZero;
+        answer[0] = cnt;
+        answer[1] = zeroNum;
+
         return answer;
     }
 }
